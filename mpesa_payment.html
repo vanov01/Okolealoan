@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>M-Pesa Payment - Okolea Mwananchi</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">Okolea Mwananchi</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="application.html">Apply Now</a></li>
+                    <li><a href="faqs.html">FAQs</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section id="mpesa-payment">
+            <div class="container">
+                <h2>M-Pesa Payment</h2>
+                <p>Please confirm the facilitation fee payment to complete your loan application.</p>
+                <div id="paymentStatus"></div>
+                <button id="payButton" class="cta-button">Pay Facilitation Fee</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Okolea Mwananchi</p>
+                <nav>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms & Conditions</a>
+                </nav>
+                <div class="social-media">
+                    <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+                    <a href="#"><img src="linkedin-icon.png" alt="LinkedIn"></a>
+                </div>
+                <div class="company-info">
+                    <p>Okolea Mwananchi is a registered financial institution</p>
+                    <p>Reg. No: 9952654 | PIN: 423657</p>
+                    <p class="nairobi-address">Afya House Room 112, 00100</p>
+                </div>
+            </div>
+            <div class="secured-by">
+                <img src="sectigo-badge.png" alt="Secured by Sectigo">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const loanTrackingID = localStorage.getItem('loanTrackingID');
+        const loanData = JSON.parse(localStorage.getItem('loanApplicationData'));
+        const paymentStatus = document.getElementById('paymentStatus');
+        const payButton = document.getElementById('payButton');
+        const facilitationFee = 245;
+
+        payButton.addEventListener('click', initiateMpesaPayment);
+
+        function initiateMpesaPayment() {
+            paymentStatus.innerHTML = "<p>Initiating M-Pesa payment...</p>";
+            payButton.disabled = true;
+
+            fetch('http://localhost:3000/initiate_mpesa_payment', { // <--- Correct URL
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    phone: loanData.mobileNumber,
+                    trackingId: loanTrackingID
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => {throw new Error(err.message || `HTTP error! status: ${response.status}`)}); // Improved error handling
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("M-Pesa Response:", data);
+                if (data.success) {
+                    paymentStatus.innerHTML = "<p>M-Pesa STK push sent. Please check your phone.</p>";
+                } else {
+                    paymentStatus.innerHTML = `<p>M-Pesa initiation failed: ${data.message}</p>`;
+                    payButton.disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error("Error initiating M-Pesa:", error);
+                paymentStatus.innerHTML = `<p>Error initiating M-Pesa: ${error.message}</p>`; // Display the detailed message
+                payButton.disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>

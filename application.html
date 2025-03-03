@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Loan Application - Okolea Mwananchi</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Professional background and container styling */
+    body {
+      background: url('images/three.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      max-width: 600px;
+      margin: 50px auto;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .cta-button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+    .cta-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section id="loan-application">
+      <div class="container">
+        <h2>See If You Qualify for a Loan</h2>
+        <form id="loanForm">
+          <!-- Country Dropdown at the very top (populated via JavaScript) -->
+          <div class="form-group">
+            <label for="country">COUNTRY OF ORIGIN:</label>
+            <select id="country" name="country" required>
+              <!-- Options will be populated via script -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="firstName">FIRST NAME:</label>
+            <input type="text" id="firstName" name="firstName" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">LAST NAME:</label>
+            <input type="text" id="lastName" name="lastName" required>
+          </div>
+          <div class="form-group">
+            <label for="email">EMAIL ADDRESS:</label>
+            <input type="email" id="email" name="email">
+          </div>
+          <div class="form-group">
+            <label for="mobileNumber">MOBILE NUMBER:</label>
+            <input type="tel" id="mobileNumber" name="mobileNumber" required>
+          </div>
+          <div class="form-group">
+            <label for="nationalId">NATIONAL ID NUMBER:</label>
+            <input type="text" id="nationalId" name="nationalId" required>
+          </div>
+          <div class="form-group">
+            <label for="loanPurpose">LOAN PURPOSE:</label>
+            <select id="loanPurpose" name="loanPurpose">
+              <option value="personal">Personal Loan</option>
+              <option value="business">Business Loan</option>
+              <option value="education">Education Loan</option>
+              <option value="medical">Medical Loan</option>
+              <option value="emergency">Emergency Loan</option>
+              <option value="vehicle">Vehicle Loan</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="employmentStatus">EMPLOYMENT STATUS:</label>
+            <select id="employmentStatus" name="employmentStatus">
+              <option value="employed">Employed</option>
+              <option value="self-employed">Self-Employed</option>
+              <option value="unemployed">Unemployed</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <!-- Monthly Income label will update based on selected country -->
+            <label id="monthlyIncomeLabel" for="monthlyIncome">MONTHLY INCOME (KES):</label>
+            <select id="monthlyIncome" name="monthlyIncome">
+              <option value="below 10k">Below 10,000</option>
+              <option value="10k-20k">10,000 - 20,000</option>
+              <option value="20k-50k">20,000 - 50,000</option>
+              <option value="50k-100k">50,000 - 100,000</option>
+              <option value="above 100k">Above 100,000</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="cta-button">Submit Application</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Array of country objects (a comprehensive list)
+    const countries = [
+      { name: "Afghanistan", currency: "AFN", fee: 10, payment: "Bank Transfer" },
+      { name: "Albania", currency: "ALL", fee: 10, payment: "Bank Transfer" },
+      { name: "Algeria", currency: "DZD", fee: 10, payment: "Bank Transfer" },
+      { name: "Andorra", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Angola", currency: "AOA", fee: 10, payment: "Bank Transfer" },
+      { name: "Antigua and Barbuda", currency: "XCD", fee: 10, payment: "Bank Transfer" },
+      { name: "Argentina", currency: "ARS", fee: 10, payment: "Bank Transfer" },
+      { name: "Armenia", currency: "AMD", fee: 10, payment: "Bank Transfer" },
+      { name: "Australia", currency: "AUD", fee: 8, payment: "Bank Transfer" },
+      { name: "Austria", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Azerbaijan", currency: "AZN", fee: 10, payment: "Bank Transfer" },
+      { name: "Bahamas", currency: "BSD", fee: 10, payment: "Bank Transfer" },
+      { name: "Bahrain", currency: "BHD", fee: 10, payment: "Bank Transfer" },
+      { name: "Bangladesh", currency: "BDT", fee: 10, payment: "Bank Transfer" },
+      { name: "Barbados", currency: "BBD", fee: 10, payment: "Bank Transfer" },
+      { name: "Belarus", currency: "BYN", fee: 10, payment: "Bank Transfer" },
+      { name: "Belgium", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Belize", currency: "BZD", fee: 10, payment: "Bank Transfer" },
+      { name: "Benin", currency: "XOF", fee: 10, payment: "Bank Transfer" },
+      { name: "Bhutan", currency: "BTN", fee: 10, payment: "Bank Transfer" },
+      { name: "Bolivia", currency: "BOB", fee: 10, payment: "Bank Transfer" },
+      { name: "Bosnia and Herzegovina", currency: "BAM", fee: 10, payment: "Bank Transfer" },
+      { name: "Botswana", currency: "BWP", fee: 10, payment: "Bank Transfer" },
+      { name: "Brazil", currency: "BRL", fee: 10, payment: "Bank Transfer" },
+      { name: "Brunei", currency: "BND", fee: 10, payment: "Bank Transfer" },
+      { name: "Bulgaria", currency: "BGN", fee: 10, payment: "Bank Transfer" },
+      { name: "Burkina Faso", currency: "XOF", fee: 10, payment: "Bank Transfer" },
+      { name: "Burundi", currency: "BIF", fee: 10, payment: "Bank Transfer" },
+      { name: "Cabo Verde", currency: "CVE", fee: 10, payment: "Bank Transfer" },
+      { name: "Cambodia", currency: "KHR", fee: 10, payment: "Bank Transfer" },
+      { name: "Cameroon", currency: "XAF", fee: 10, payment: "Bank Transfer" },
+      { name: "Canada", currency: "CAD", fee: 8, payment: "Bank Transfer" },
+      { name: "Central African Republic", currency: "XAF", fee: 10, payment: "Bank Transfer" },
+      { name: "Chad", currency: "XAF", fee: 10, payment: "Bank Transfer" },
+      { name: "Chile", currency: "CLP", fee: 10, payment: "Bank Transfer" },
+      { name: "China", currency: "CNY", fee: 10, payment: "Bank Transfer" },
+      { name: "Colombia", currency: "COP", fee: 10, payment: "Bank Transfer" },
+      { name: "Comoros", currency: "KMF", fee: 10, payment: "Bank Transfer" },
+      { name: "Congo (Congo-Brazzaville)", currency: "XAF", fee: 10, payment: "Bank Transfer" },
+      { name: "Costa Rica", currency: "CRC", fee: 10, payment: "Bank Transfer" },
+      { name: "Croatia", currency: "HRK", fee: 10, payment: "Bank Transfer" },
+      { name: "Cuba", currency: "CUP", fee: 10, payment: "Bank Transfer" },
+      { name: "Cyprus", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Czech Republic", currency: "CZK", fee: 10, payment: "Bank Transfer" },
+      { name: "Democratic Republic of the Congo", currency: "CDF", fee: 10, payment: "Bank Transfer" },
+      { name: "Denmark", currency: "DKK", fee: 10, payment: "Bank Transfer" },
+      { name: "Djibouti", currency: "DJF", fee: 10, payment: "Bank Transfer" },
+      { name: "Dominica", currency: "XCD", fee: 10, payment: "Bank Transfer" },
+      { name: "Dominican Republic", currency: "DOP", fee: 10, payment: "Bank Transfer" },
+      { name: "Ecuador", currency: "USD", fee: 8, payment: "PayPal" },
+      { name: "Egypt", currency: "EGP", fee: 10, payment: "Bank Transfer" },
+      { name: "El Salvador", currency: "USD", fee: 8, payment: "PayPal" },
+      { name: "Equatorial Guinea", currency: "XAF", fee: 10, payment: "Bank Transfer" },
+      { name: "Eritrea", currency: "ERN", fee: 10, payment: "Bank Transfer" },
+      { name: "Estonia", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Eswatini", currency: "SZL", fee: 10, payment: "Bank Transfer" },
+      { name: "Ethiopia", currency: "ETB", fee: 10, payment: "Bank Transfer" },
+      { name: "Fiji", currency: "FJD", fee: 10, payment: "Bank Transfer" },
+      { name: "Finland", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "France", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Gabon", currency: "XAF", fee: 10, payment: "Bank Transfer" },
+      { name: "Gambia", currency: "GMD", fee: 10, payment: "Bank Transfer" },
+      { name: "Georgia", currency: "GEL", fee: 10, payment: "Bank Transfer" },
+      { name: "Germany", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Ghana", currency: "GHS", fee: 10, payment: "Bank Transfer" },
+      { name: "Greece", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Grenada", currency: "XCD", fee: 10, payment: "Bank Transfer" },
+      { name: "Guatemala", currency: "GTQ", fee: 10, payment: "Bank Transfer" },
+      { name: "Guinea", currency: "GNF", fee: 10, payment: "Bank Transfer" },
+      { name: "Guinea-Bissau", currency: "XOF", fee: 10, payment: "Bank Transfer" },
+      { name: "Guyana", currency: "GYD", fee: 10, payment: "Bank Transfer" },
+      { name: "Haiti", currency: "HTG", fee: 10, payment: "Bank Transfer" },
+      { name: "Holy See", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Honduras", currency: "HNL", fee: 10, payment: "Bank Transfer" },
+      { name: "Hungary", currency: "HUF", fee: 10, payment: "Bank Transfer" },
+      { name: "Iceland", currency: "ISK", fee: 10, payment: "Bank Transfer" },
+      { name: "India", currency: "INR", fee: 10, payment: "Bank Transfer" },
+      { name: "Indonesia", currency: "IDR", fee: 10, payment: "Bank Transfer" },
+      { name: "Iran", currency: "IRR", fee: 10, payment: "Bank Transfer" },
+      { name: "Iraq", currency: "IQD", fee: 10, payment: "Bank Transfer" },
+      { name: "Ireland", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Israel", currency: "ILS", fee: 10, payment: "Bank Transfer" },
+      { name: "Italy", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Jamaica", currency: "JMD", fee: 10, payment: "Bank Transfer" },
+      { name: "Japan", currency: "JPY", fee: 10, payment: "Bank Transfer" },
+      { name: "Jordan", currency: "JOD", fee: 10, payment: "Bank Transfer" },
+      { name: "Kazakhstan", currency: "KZT", fee: 10, payment: "Bank Transfer" },
+      { name: "Kenya", currency: "KES", fee: 990, payment: "M-PESA" },
+      { name: "Kiribati", currency: "AUD", fee: 8, payment: "Bank Transfer" },
+      { name: "Kuwait", currency: "KWD", fee: 10, payment: "Bank Transfer" },
+      { name: "Kyrgyzstan", currency: "KGS", fee: 10, payment: "Bank Transfer" },
+      { name: "Laos", currency: "LAK", fee: 10, payment: "Bank Transfer" },
+      { name: "Latvia", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Lebanon", currency: "LBP", fee: 10, payment: "Bank Transfer" },
+      { name: "Lesotho", currency: "LSL", fee: 10, payment: "Bank Transfer" },
+      { name: "Liberia", currency: "LRD", fee: 10, payment: "Bank Transfer" },
+      { name: "Libya", currency: "LYD", fee: 10, payment: "Bank Transfer" },
+      { name: "Liechtenstein", currency: "CHF", fee: 10, payment: "Bank Transfer" },
+      { name: "Lithuania", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Luxembourg", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Madagascar", currency: "MGA", fee: 10, payment: "Bank Transfer" },
+      { name: "Malawi", currency: "MWK", fee: 10, payment: "Bank Transfer" },
+      { name: "Malaysia", currency: "MYR", fee: 10, payment: "Bank Transfer" },
+      { name: "Maldives", currency: "MVR", fee: 10, payment: "Bank Transfer" },
+      { name: "Mali", currency: "XOF", fee: 10, payment: "Bank Transfer" },
+      { name: "Malta", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Marshall Islands", currency: "USD", fee: 8, payment: "PayPal" },
+      { name: "Mauritania", currency: "MRU", fee: 10, payment: "Bank Transfer" },
+      { name: "Mauritius", currency: "MUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Mexico", currency: "MXN", fee: 10, payment: "Bank Transfer" },
+      { name: "Micronesia", currency: "USD", fee: 8, payment: "PayPal" },
+      { name: "Moldova", currency: "MDL", fee: 10, payment: "Bank Transfer" },
+      { name: "Monaco", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Mongolia", currency: "MNT", fee: 10, payment: "Bank Transfer" },
+      { name: "Montenegro", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Morocco", currency: "MAD", fee: 10, payment: "Bank Transfer" },
+      { name: "Mozambique", currency: "MZN", fee: 10, payment: "Bank Transfer" },
+      { name: "Myanmar", currency: "MMK", fee: 10, payment: "Bank Transfer" },
+      { name: "Namibia", currency: "NAD", fee: 10, payment: "Bank Transfer" },
+      { name: "Nauru", currency: "AUD", fee: 8, payment: "Bank Transfer" },
+      { name: "Nepal", currency: "NPR", fee: 10, payment: "Bank Transfer" },
+      { name: "Netherlands", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "New Zealand", currency: "NZD", fee: 8, payment: "Bank Transfer" },
+      { name: "Nicaragua", currency: "NIO", fee: 10, payment: "Bank Transfer" },
+      { name: "Niger", currency: "XOF", fee: 10, payment: "Bank Transfer" },
+      { name: "Nigeria", currency: "NGN", fee: 10, payment: "Bank Transfer" },
+      { name: "North Korea", currency: "KPW", fee: 10, payment: "Bank Transfer" },
+      { name: "North Macedonia", currency: "MKD", fee: 10, payment: "Bank Transfer" },
+      { name: "Norway", currency: "NOK", fee: 10, payment: "Bank Transfer" },
+      { name: "Oman", currency: "OMR", fee: 10, payment: "Bank Transfer" },
+      { name: "Pakistan", currency: "PKR", fee: 10, payment: "Bank Transfer" },
+      { name: "Palau", currency: "USD", fee: 8, payment: "PayPal" },
+      { name: "Palestine", currency: "ILS", fee: 10, payment: "Bank Transfer" },
+      { name: "Panama", currency: "PAB", fee: 10, payment: "Bank Transfer" },
+      { name: "Papua New Guinea", currency: "PGK", fee: 10, payment: "Bank Transfer" },
+      { name: "Paraguay", currency: "PYG", fee: 10, payment: "Bank Transfer" },
+      { name: "Peru", currency: "PEN", fee: 10, payment: "Bank Transfer" },
+      { name: "Philippines", currency: "PHP", fee: 10, payment: "Bank Transfer" },
+      { name: "Poland", currency: "PLN", fee: 10, payment: "Bank Transfer" },
+      { name: "Portugal", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Qatar", currency: "QAR", fee: 10, payment: "Bank Transfer" },
+      { name: "Romania", currency: "RON", fee: 10, payment: "Bank Transfer" },
+      { name: "Russia", currency: "RUB", fee: 10, payment: "Bank Transfer" },
+      { name: "Rwanda", currency: "RWF", fee: 10, payment: "Bank Transfer" },
+      { name: "Saint Kitts and Nevis", currency: "XCD", fee: 10, payment: "Bank Transfer" },
+      { name: "Saint Lucia", currency: "XCD", fee: 10, payment: "Bank Transfer" },
+      { name: "Saint Vincent and the Grenadines", currency: "XCD", fee: 10, payment: "Bank Transfer" },
+      { name: "Samoa", currency: "WST", fee: 10, payment: "Bank Transfer" },
+      { name: "San Marino", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Sao Tome and Principe", currency: "STN", fee: 10, payment: "Bank Transfer" },
+      { name: "Saudi Arabia", currency: "SAR", fee: 10, payment: "Bank Transfer" },
+      { name: "Senegal", currency: "XOF", fee: 10, payment: "Bank Transfer" },
+      { name: "Serbia", currency: "RSD", fee: 10, payment: "Bank Transfer" },
+      { name: "Seychelles", currency: "SCR", fee: 10, payment: "Bank Transfer" },
+      { name: "Sierra Leone", currency: "SLL", fee: 10, payment: "Bank Transfer" },
+      { name: "Singapore", currency: "SGD", fee: 8, payment: "Bank Transfer" },
+      { name: "Slovakia", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Slovenia", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Solomon Islands", currency: "SBD", fee: 10, payment: "Bank Transfer" },
+      { name: "Somalia", currency: "SOS", fee: 10, payment: "Bank Transfer" },
+      { name: "South Africa", currency: "ZAR", fee: 10, payment: "Bank Transfer" },
+      { name: "South Korea", currency: "KRW", fee: 10, payment: "Bank Transfer" },
+      { name: "South Sudan", currency: "SSP", fee: 10, payment: "Bank Transfer" },
+      { name: "Spain", currency: "EUR", fee: 10, payment: "Bank Transfer" },
+      { name: "Sri Lanka", currency: "LKR", fee: 10, payment: "Bank Transfer" },
+      { name: "Sudan", currency: "SDG", fee: 10, payment: "Bank Transfer" },
+      { name: "Suriname", currency: "SRD", fee: 10, payment: "Bank Transfer" },
+      { name: "Sweden", currency: "SEK", fee: 10, payment: "Bank Transfer" },
+      { name: "Switzerland", currency: "CHF", fee: 10, payment: "Bank Transfer" },
+      { name: "Syria", currency: "SYP", fee: 10, payment: "Bank Transfer" },
+      { name: "Tajikistan", currency: "TJS", fee: 10, payment: "Bank Transfer" },
+      { name: "Tanzania", currency: "TZS", fee: 24750, payment: "M-Pesa" },
+      { name: "Thailand", currency: "THB", fee: 10, payment: "Bank Transfer" },
+      { name: "Timor-Leste", currency: "USD", fee: 8, payment: "PayPal" },
+      { name: "Togo", currency: "XOF", fee: 10, payment: "Bank Transfer" },
+      { name: "Tonga", currency: "TOP", fee: 10, payment: "Bank Transfer" },
+      { name: "Trinidad and Tobago", currency: "TTD", fee: 10, payment: "Bank Transfer" },
+      { name: "Tunisia", currency: "TND", fee: 10, payment: "Bank Transfer" },
+      { name: "Turkey", currency: "TRY", fee: 10, payment: "Bank Transfer" },
+      { name: "Turkmenistan", currency: "TMT", fee: 10, payment: "Bank Transfer" },
+      { name: "Tuvalu", currency: "AUD", fee: 8, payment: "Bank Transfer" },
+      { name: "Uganda", currency: "UGX", fee: 10, payment: "Bank Transfer" },
+      { name: "Ukraine", currency: "UAH", fee: 10, payment: "Bank Transfer" },
+      { name: "United Arab Emirates", currency: "AED", fee: 10, payment: "Bank Transfer" },
+      { name: "United Kingdom", currency: "GBP", fee: 8, payment: "Bank Transfer" },
+      { name: "United States", currency: "USD", fee: 8, payment: "PayPal" },
+      { name: "Uruguay", currency: "UYU", fee: 10, payment: "Bank Transfer" },
+      { name: "Uzbekistan", currency: "UZS", fee: 10, payment: "Bank Transfer" },
+      { name: "Vanuatu", currency: "VUV", fee: 10, payment: "Bank Transfer" },
+      { name: "Venezuela", currency: "VES", fee: 10, payment: "Bank Transfer" },
+      { name: "Vietnam", currency: "VND", fee: 10, payment: "Bank Transfer" },
+      { name: "Yemen", currency: "YER", fee: 10, payment: "Bank Transfer" },
+      { name: "Zambia", currency: "ZMW", fee: 10, payment: "Bank Transfer" },
+      { name: "Zimbabwe", currency: "ZWL", fee: 10, payment: "Bank Transfer" },
+      { name: "Other", currency: "USD", fee: 8, payment: "PayPal" }
+    ];
+    
+    // Populate the country dropdown
+    const countrySelect = document.getElementById('country');
+    countries.forEach(country => {
+      const option = document.createElement('option');
+      option.value = country.name;
+      option.textContent = country.name;
+      option.setAttribute('data-currency', country.currency);
+      option.setAttribute('data-facility-fee', country.fee);
+      option.setAttribute('data-payment', country.payment);
+      countrySelect.appendChild(option);
+    });
+
+    // Update the monthly income label based on selected country's currency
+    const monthlyIncomeLabel = document.getElementById('monthlyIncomeLabel');
+    countrySelect.addEventListener('change', function() {
+      const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+      const currency = selectedOption.getAttribute('data-currency');
+      monthlyIncomeLabel.textContent = `MONTHLY INCOME (${currency}):`;
+    });
+
+    const loanForm = document.getElementById('loanForm');
+    loanForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const formData = new FormData(loanForm);
+      const loanData = {};
+      formData.forEach((value, key) => loanData[key] = value);
+
+      // Retrieve selected country details
+      const selectedCountry = countrySelect.options[countrySelect.selectedIndex];
+      loanData.currency = selectedCountry.getAttribute('data-currency');
+      loanData.facilityFee = selectedCountry.getAttribute('data-facility-fee');
+      loanData.paymentMethod = selectedCountry.getAttribute('data-payment');
+
+      // Save application data locally for later use
+      localStorage.setItem('loanApplicationData', JSON.stringify(loanData));
+
+      // Determine qualified loan amount based on monthly income
+      const qualifiedAmount = calculateLoanAmount(loanData.monthlyIncome);
+      localStorage.setItem('qualifiedAmount', qualifiedAmount);
+      // Save dynamic facility fee, currency, and payment method to localStorage
+      localStorage.setItem('facilitationFee', loanData.facilityFee);
+      localStorage.setItem('currency', loanData.currency);
+      localStorage.setItem('paymentMethod', loanData.paymentMethod);
+
+      window.location.href = 'confirm.html';
+    });
+
+    // Updated loan amount ranges using random values
+    function calculateLoanAmount(monthlyIncome) {
+      switch (monthlyIncome) {
+        case 'below 10k':
+          return getRandomInt(7000, 9000);
+        case '10k-20k':
+          return getRandomInt(14000, 17000);
+        case '20k-50k':
+          return getRandomInt(22000, 40000);
+        case '50k-100k':
+          return getRandomInt(51000, 80000);
+        case 'above 100k':
+          return 150000;
+        default:
+          return 0;
+      }
+    }
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+  </script>
+</body>
+</html>

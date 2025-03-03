@@ -1,0 +1,3 @@
+const encodedPasskey = "f43Z87raLDyvFOMRvfdxLuzuVrp0CwaR49OX/Fco9RJWAnHsCOKUt+UwJQGjZq2FtEJank1WXg/Xqt6zBGmsehaer+LLdhL9kiO52+lojq+qys+wq5Ka0TNYu/XdITJKsyVK+kmzPLqSOiL3Bvv90Fnyev9es/bRrzB2nChY7IzlMUM0qDqbvulT3Sq5cJs1u64lJalujGscoHUczgL8mbqnbsGWVtZwV+MOr8W4vj81lYiA9gvOJ/A+gRIkRXa1yuBJBhmHaBTKg2YjHUqO67mPP/P9W7dXgGqbeJPSErEaJiOCrwRzmg0itEY+J4ijz6xC9S3MySxZ6dAcvfapyg==";
+const decodedPasskey = Buffer.from(encodedPasskey, 'base64').toString('ascii');
+console.log(decodedPasskey);

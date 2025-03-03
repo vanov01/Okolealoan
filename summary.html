@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Loan Summary - Okolea Mwananchi</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: url('images/building.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .overlay {
+      background: rgba(255, 255, 255, 0.85);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      background: #fff;
+      max-width: 600px;
+      width: 90%;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+    h2 {
+      margin-bottom: 20px;
+      font-size: 2em;
+    }
+    .summary-item {
+      margin-bottom: 15px;
+      font-size: 1.2em;
+    }
+    .cta-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1em;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      margin-top: 20px;
+    }
+    .cta-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="container">
+      <h2>Loan Application Summary</h2>
+      <div id="summaryContainer">
+        Loading summary...
+      </div>
+      <a href="index.html" class="cta-button">Return to Homepage</a>
+    </div>
+  </div>
+  <script>
+    const loanData = JSON.parse(localStorage.getItem('loanApplicationData'));
+    const qualifiedAmount = localStorage.getItem('qualifiedAmount');
+    const currency = localStorage.getItem('currency');
+    const paymentMethod = localStorage.getItem('paymentMethod');
+    const facilityFee = localStorage.getItem('facilitationFee');
+
+    const summaryContainer = document.getElementById('summaryContainer');
+    summaryContainer.innerHTML = `
+      <p class="summary-item">Hi ${loanData.firstName} ${loanData.lastName},</p>
+      <p class="summary-item">You have qualified for a loan of ${currency} ${qualifiedAmount} to your ${paymentMethod} account.</p>
+      <p class="summary-item">Facility Fee: ${currency} ${facilityFee}</p>
+      <p class="summary-item">Your loan repayment period is 40 days with a 7% interest rate.</p>
+      <p class="summary-item">Terms and conditions apply.</p>
+    `;
+  </script>
+</body>
+</html>
