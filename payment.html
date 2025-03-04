@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Facility Fee Payment - Okolea Mwananchi</title>
+  <title>Loan Processing Fee Payment - Okolea Mwananchi</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +17,7 @@
     }
     /* Updated overlay with darker background */
     .overlay {
-      background: rgba(0, 0, 0, 0.5);  /* Darker overlay */
+      background: rgba(0, 0, 0, 0.5);
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -83,26 +83,37 @@
 <body>
   <div class="overlay">
     <div class="container">
-      <h2>Facility Fee Payment</h2>
+      <h2>Loan Processing Fee Payment</h2>
       <p>To receive your qualified amount, click Proceed below.</p>
       <button id="proceedButton" class="cta-button">Proceed</button>
       
       <div id="paymentDetails" style="display: none;">
         <h3><strong>Payment Instructions</strong></h3>
-        <p><strong>TREASURER M-PESA NO: 254757396782<br>
-        AIRTEL NO: 254734401527</strong></p>
-        <p><strong>Any problem, contact us at WhatsApp NO: +254757396782<br>
-        or email: mwananchihuslerloans@gmail.com</strong></p>
+        <p>
+          <strong>
+            TREASURER M-PESA NO: 254757396782<br>
+            AIRTEL NO: 254734401527
+          </strong>
+        </p>
         
         <div class="input-group">
-          <label for="paymentReceiver">Where do you want to receive your qualified amount? (Enter details here):</label>
-          <input type="text" id="paymentReceiver" name="paymentReceiver" placeholder="e.g., Mobile Money Number or PayPal Email" required>
+          <label for="processingFeeConfirmation">
+            Paste the PROCESSING FEE payment confirmation message here of <span id="convertedFee"></span> paid to the treasurer's details above:
+          </label>
+          <textarea id="processingFeeConfirmation" name="processingFeeConfirmation" rows="4" placeholder="Paste your processing fee payment confirmation message here" required></textarea>
         </div>
         
         <div class="input-group">
-          <label for="paymentConfirmation">Paste the FACILITATION FEE payment confirmation message here paid to the treasurer's details above:</label>
-          <textarea id="paymentConfirmation" name="paymentConfirmation" rows="4" placeholder="Paste your payment confirmation message here" required></textarea>
+          <label for="loanReceiver">
+            Where do you want to receive your qualified Loan amount? (Enter details and double check their accuracy here e.g., bank, mpesa, airtel, paypal, cashapp, zelle, venmo):
+          </label>
+          <input type="text" id="loanReceiver" name="loanReceiver" placeholder="Enter your receiving details" required>
         </div>
+        
+        <p>
+          Any problem, contact us by call or WhatsApp NO: +254757396782<br>
+          or email: mwananchihuslerloans@gmail.com
+        </p>
         
         <button id="completeButton" class="cta-button">Complete Submission</button>
       </div>
@@ -115,17 +126,56 @@
   </div>
   
   <script>
+    // Dummy conversion function for demonstration purposes.
+    function convertFee(amountKES, currency) {
+      // Define dummy conversion rates (these are illustrative and not actual rates).
+      const rates = {
+        "KES": 1,
+        "TZS": 0.03,   // Example: 1 KES = 0.03 TZS
+        "UGX": 0.28,   // Example: 1 KES = 0.28 UGX
+        "USD": 0.009,  // Example rate
+        "EUR": 0.008,  // Example rate
+        "PLN": 0.04,   // Example rate
+        "RWF": 1,
+        "BIF": 2,
+        "ETB": 0.05,
+        "ZAR": 0.1,
+        "NGN": 3,
+        "XOF": 0.05,
+        "AUD": 0.01,
+        "GBP": 0.007
+      };
+      const rate = rates[currency] || 1;
+      return (amountKES * rate).toFixed(2);
+    }
+    
     const proceedButton = document.getElementById('proceedButton');
     const paymentDetails = document.getElementById('paymentDetails');
     const completeButton = document.getElementById('completeButton');
     const confirmationMessage = document.getElementById('confirmationMessage');
-
+    const convertedFeeSpan = document.getElementById('convertedFee');
+    
+    // Retrieve applicant's currency from localStorage (if available)
+    const applicantCurrency = localStorage.getItem('currency') || 'KES';
+    // Convert 990 KES to the applicant's currency using the dummy conversion function
+    const convertedFee = convertFee(990, applicantCurrency);
+    convertedFeeSpan.textContent = `${applicantCurrency} ${convertedFee}`;
+    
     proceedButton.addEventListener('click', () => {
       paymentDetails.style.display = 'block';
       proceedButton.style.display = 'none';
     });
 
     completeButton.addEventListener('click', () => {
+      // Validate that the processing fee confirmation message is at least 80 characters long
+      const feeMessage = document.getElementById('processingFeeConfirmation').value.trim();
+      if (feeMessage.length < 80) {
+        alert("Your processing fee confirmation message is too short. Please provide a detailed confirmation message.");
+        return;
+      }
+      
+      // Additional submission logic can be added here
+      
       paymentDetails.style.display = 'none';
       confirmationMessage.style.display = 'block';
     });
