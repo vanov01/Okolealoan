@@ -68,9 +68,10 @@
   </div>
   <script>
     const loanData = JSON.parse(localStorage.getItem('loanApplicationData'));
-    if (loanData && loanData.firstName) {
+    const qualifiedAmount = localStorage.getItem('qualifiedAmount');
+    if (loanData && loanData.firstName && qualifiedAmount) {
       document.getElementById('confirmMessage').textContent =
-        `Thank you, ${loanData.firstName}. Your loan application has been received and is being processed. Please proceed to pay the facility fee to complete your application.`;
+        `Thank you, ${loanData.firstName}. You qualify for ${qualifiedAmount}. Please proceed to pay the processing fee to complete your application. Proceed to Payment.`;
     }
   </script>
 </body>
