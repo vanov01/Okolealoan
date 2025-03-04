@@ -4,13 +4,61 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Okolea Mwananchi Hustler Loan</title>
-  <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset & Base Styles */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: #f8f8f8; color: #333; }
+    .container { width: 90%; max-width: 1200px; margin: auto; padding: 1rem; }
+    a { text-decoration: none; }
+    /* Header */
+    header { background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+    header .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+    header .logo { font-size: 1.5rem; font-weight: 700; color: #333; }
+    nav ul { list-style: none; display: flex; gap: 1.5rem; }
+    nav a { color: #333; font-weight: 500; transition: color 0.3s; }
+    nav a:hover, nav a.active { color: #4CAF50; }
+    /* Hero Section */
+    #hero { background: url('images/hero.jpg') center/cover no-repeat; color: #fff; padding: 4rem 0; text-align: center; }
+    #hero h2 { font-size: 2.5rem; margin-bottom: 1rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); }
+    #hero p { font-size: 1.2rem; margin-bottom: 2rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); }
+    .cta-button { display: inline-block; background: #4CAF50; color: #fff; padding: 0.8rem 1.5rem; border-radius: 4px; font-weight: 600; transition: background 0.3s; }
+    .cta-button:hover { background: #45a049; }
+    /* How It Works Section */
+    #how-it-works { padding: 4rem 0; background: #fff; }
+    #how-it-works h2 { text-align: center; margin-bottom: 2rem; font-size: 2rem; }
+    .steps-container { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: space-around; }
+    .step { flex: 1; min-width: 250px; background: #f1f1f1; padding: 1.5rem; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .step h3 { margin-bottom: 1rem; font-size: 1.5rem; color: #4CAF50; }
+    /* Our Solutions Section */
+    #our-solutions { padding: 4rem 0; background: #f8f8f8; }
+    #our-solutions h2 { text-align: center; margin-bottom: 2rem; font-size: 2rem; }
+    .solutions-container { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: space-around; }
+    .solution { flex: 1; min-width: 250px; background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; }
+    .solution h3 { margin-bottom: 1rem; color: #4CAF50; }
+    /* Testimonials Section */
+    #testimonials { padding: 4rem 0; background: #fff; }
+    #testimonials h2 { text-align: center; margin-bottom: 2rem; font-size: 2rem; }
+    .testimonials-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+    .testimonial { background: #f1f1f1; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; }
+    .testimonial img { width: 60px; height: 60px; border-radius: 50%; margin-bottom: 1rem; }
+    /* Footer */
+    footer { background: #333; color: #fff; padding: 2rem 0; }
+    footer .footer-content { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; }
+    footer nav a { color: #fff; margin-right: 1rem; font-size: 0.9rem; }
+    footer nav a:hover { text-decoration: underline; }
+    footer .social-media a { margin-right: 0.5rem; }
+    footer .social-media img { width: 24px; height: 24px; }
+    footer .company-info p { font-size: 0.9rem; }
+    footer .secured-by { margin-top: 1rem; text-align: center; }
+    footer .secured-by img { width: 120px; }
+    @media (max-width: 768px) {
+      .steps-container, .solutions-container { flex-direction: column; align-items: center; }
+      header .container, footer .container { flex-direction: column; text-align: center; }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -28,15 +76,16 @@
   </header>
 
   <main>
+    <!-- Hero Section -->
     <section id="hero">
       <div class="container">
-        <h2>Get Okolea Mwananchi Hustler Loan</h2>
-        <p>Get up to KSh 200,000 (approximately $1,667 USD) in as little as 5 minutes!</p>
-        <p>Fast, reliable, and designed to empower hustlers like you.</p>
+        <h2>Welcome to Okolea Mwananchi Hustler Loan</h2>
+        <p>Empowering hustlers with fast, reliable, and accessible loan solutions.</p>
         <a href="application.html" class="cta-button">Apply Now</a>
       </div>
     </section>
 
+    <!-- How It Works Section -->
     <section id="how-it-works">
       <div class="container">
         <h2>How It Works</h2>
@@ -50,51 +99,55 @@
             <p>We verify your information to determine your loan eligibility.</p>
           </div>
           <div class="step">
-            <h3>Step 3: Receive Your Money</h3>
-            <p>Approval is fast, and funds are sent directly to your M-Pesa account.</p>
+            <h3>Step 3: Receive Your Funds</h3>
+            <p>Once approved, funds are directly transferred to your account.</p>
           </div>
         </div>
         <a href="application.html" class="cta-button">Apply Now</a>
       </div>
     </section>
 
+    <!-- Our Solutions Section -->
     <section id="our-solutions">
       <div class="container">
         <h2>Our Loan Solutions</h2>
         <div class="solutions-container">
           <div class="solution">
             <h3>Personal Loans</h3>
-            <p>Achieve your personal goals with our flexible personal loan options.</p>
+            <p>Flexible loans to help you achieve your personal goals.</p>
           </div>
           <div class="solution">
             <h3>Business Loans</h3>
-            <p>Grow your business with our tailored business loan solutions.</p>
+            <p>Tailored loan solutions to grow your business.</p>
           </div>
           <div class="solution">
-            <h3>Other Loan Types</h3>
-            <p>
-              We also offer loans for school fees, hospital expenses, car purchases, and more.
-            </p>
+            <h3>Other Loans</h3>
+            <p>Loans for education, emergencies, vehicle purchases, and more.</p>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Testimonials Section -->
     <section id="testimonials">
       <div class="container">
         <h2>Testimonials</h2>
         <div class="testimonials-container">
           <div class="testimonial">
-            <p>"Okolea Mwananchi helped me expand my business..." - John Doe</p>
+            <img src="images/face1.jpg" alt="John Doe" />
+            <p>"Okolea Mwananchi helped me expand my business quickly!" - John Doe</p>
           </div>
           <div class="testimonial">
-            <p>"I got the loan quickly and easily..." - Jane Smith</p>
+            <img src="images/face2.jpg" alt="Jane Smith" />
+            <p>"Fast approval and excellent customer service." - Jane Smith</p>
           </div>
           <div class="testimonial">
-            <p>"The interest rates are very competitive..." - Peter Jones</p>
+            <img src="images/face3.jpg" alt="Peter Jones" />
+            <p>"I got the funds I needed to kickstart my venture." - Peter Jones</p>
           </div>
           <div class="testimonial">
-            <p>"I highly recommend Okolea Mwananchi..." - Mary Brown</p>
+            <img src="images/face4.jpg" alt="Mary Brown" />
+            <p>"Highly recommended for hustlers looking for a quick loan." - Mary Brown</p>
           </div>
         </div>
       </div>
